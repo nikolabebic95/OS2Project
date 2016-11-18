@@ -1,10 +1,18 @@
+/**
+ * \file DummyHeader.h
+ * \brief Dummy file testing the include path dependency
+ * TODO: Remove the file
+ */
+
 #ifndef _dummyheader_h_
 #define _dummyheader_h_
 
 #include <iostream>
 
-inline void f() {
-	std::cout << "Dummy" << std::endl;
+namespace dummy {
+	inline void f() {
+		std::cout << "Hello World!" << std::endl;
+	}
 }
 
 #endif
