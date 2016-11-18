@@ -9,7 +9,7 @@ void kmem_init(void *space, int block_num) {
 	// TODO: Implementation
 }
 
-kmem_cache_t * kmem_cache_create(const char *name, size_t size, void(*ctor)(void *), void(*dtor)(void *)) {
+kmem_cache_t *kmem_cache_create(const char *name, size_t size, void(*ctor)(void *), void(*dtor)(void *)) {
 	// TODO: Implementation
 	return nullptr;
 }
@@ -19,7 +19,7 @@ int kmem_cache_shrink(kmem_cache_t *cachep) {
 	return 0;
 }
 
-void * kmem_cache_alloc(kmem_cache_t *cachep) {
+void *kmem_cache_alloc(kmem_cache_t *cachep) {
 	// TODO: Implementation
 	return nullptr;
 }
@@ -28,7 +28,7 @@ void kmem_cache_free(kmem_cache_t *cachep, void *objp) {
 	// TODO: Implementation
 }
 
-void * kmalloc(size_t size) {
+void *kmalloc(size_t size) {
 	// TODO: Implementation
 	return nullptr;
 }

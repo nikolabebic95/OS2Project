@@ -150,9 +150,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\Main.cpp" />
+    <ClCompile Include="src\Slab.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="h\DummyHeader.h" />
+    <ClInclude Include="h\Slab.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
