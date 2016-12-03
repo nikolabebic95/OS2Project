@@ -1,7 +1,6 @@
 /**
  * \file Slab.h
  * \brief Interface for the cache system provided by the professors
- * TODO: Documentation
  */
 
 #ifndef _slab_h_
@@ -13,8 +12,9 @@ typedef struct kmem_cache_s kmem_cache_t;
 #define CACHE_L1_LINE_SIZE (64)
 
 /**
- * \brief Initialize
- * TODO: Document parameters
+ * \brief Initialize the allocator
+ * \param space Pointer to the memory which the allocator can use
+ * \param block_num Size of the memory in blocks
  */
 void kmem_init(void *space, int block_num);
 
@@ -33,19 +33,21 @@ kmem_cache_t *kmem_cache_create(const char *name, size_t size, void(*ctor)(void 
 
 /**
  * \brief Shrink cache
- * TODO: Document parameter and return value
+ * \param cachep Pointer to the cache
+ * \return Number of deallocated blocks
  */
 int kmem_cache_shrink(kmem_cache_t *cachep);
 
 /**
  * \brief Allocate one object from cache
- * TODO: Document parameter
+ * \param cachep Pointer to the cache
  */
 void *kmem_cache_alloc(kmem_cache_t *cachep);
 
 /**
  * \brief Deallocate one object from cache
- * TODO: Document parameter
+ * \param cachep Pointer to the cache
+ * \param objp Pointer to the object
  */
 void kmem_cache_free(kmem_cache_t *cachep, void *objp);
 
@@ -64,19 +66,19 @@ void kfree(const void *objp);
 
 /**
  * \brief Deallocate cache
- * TODO: Document parameter
+ * \param cachep Pointer to the cache
  */
 void kmem_cache_destroy(kmem_cache_t *cachep);
 
 /**
  * \brief Print cache info
- * TODO: Document parameter
+ * \param cachep Pointer to the cache
  */
 void kmem_cache_info(kmem_cache_t *cachep);
 
 /**
  * \brief Print error message
- * TODO: DOcument parameter
+ * \param cachep Pointer to the cache
  */
 int kmem_cache_error(kmem_cache_t *cachep);
 

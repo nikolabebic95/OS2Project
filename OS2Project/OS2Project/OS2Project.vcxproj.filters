@@ -17,12 +17,18 @@
     <ClCompile Include="src\Slab.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="h\AllocatorUtility.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="h\DummyHeader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="h\Slab.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="h\AllocatorUtility.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

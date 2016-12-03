@@ -149,10 +149,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="h\AllocatorUtility.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\Slab.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="h\AllocatorUtility.h" />
     <ClInclude Include="h\DummyHeader.h" />
     <ClInclude Include="h\Slab.h" />
   </ItemGroup>
