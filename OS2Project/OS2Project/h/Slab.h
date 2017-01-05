@@ -6,10 +6,7 @@
 #ifndef _slab_h_
 #define _slab_h_
 
-typedef struct kmem_cache_s kmem_cache_t;
-
-#define BLOCK_SIZE (4096)
-#define CACHE_L1_LINE_SIZE (64)
+#include "Definitions.h" // kmem_cache_t
 
 /**
  * \brief Initialize the allocator

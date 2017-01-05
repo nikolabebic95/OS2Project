@@ -92,6 +92,7 @@
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>
       </AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4290</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -149,12 +150,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="h\AllocatorUtility.cpp" />
+    <ClCompile Include="src\AllocatorUtility.cpp" />
+    <ClCompile Include="src\BlockList.cpp" />
+    <ClCompile Include="src\Buddy.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\Slab.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="h\AllocatorUtility.h" />
+    <ClInclude Include="h\BlockList.h" />
+    <ClInclude Include="h\Buddy.h" />
+    <ClInclude Include="h\Definitions.h" />
     <ClInclude Include="h\DummyHeader.h" />
     <ClInclude Include="h\Slab.h" />
   </ItemGroup>
