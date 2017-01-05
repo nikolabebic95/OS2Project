@@ -28,6 +28,7 @@ namespace os2bn140314d {
 	union Header {
 		header_s header_;
 		Block block_;
+		~Header() = delete;
 	};
 
 	#pragma endregion 

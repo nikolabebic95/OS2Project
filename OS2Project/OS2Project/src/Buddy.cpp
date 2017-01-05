@@ -13,7 +13,7 @@ namespace os2bn140314d {
 
 		try {
 			auto power = greaterOrEqualPowerOfTwo(size);
-			auto index = powerToIndex(power);
+			auto index = sizeToPower(power);
 
 			return allocatePowerOfTwo(index);
 		}
@@ -23,7 +23,10 @@ namespace os2bn140314d {
 	}
 
 	void *Buddy::allocatePowerOfTwo(size_t power) throw (std::bad_alloc) {
-		auto header = AllocatorUtility::buddyHeader();
+		auto &header = AllocatorUtility::buddyHeader();
+
+		header.mutex_.lock();
+
 		auto pointer = header.pointers_[power];
 
 		Block *ret;
@@ -36,6 +39,7 @@ namespace os2bn140314d {
 
 			if (bigger_power == POWERS_OF_TWO) {
 				// No more available memory
+				header.mutex_.unlock();
 				throw std::bad_alloc();
 			}
 
@@ -57,7 +61,17 @@ namespace os2bn140314d {
 		auto index_of_bitmap = header.indexOfBitmap(ret);
 		auto index_in_bitmap = header.indexInBitmap(ret);
 
-		header.bitmaps_[index_of_bitmap].allocate(index_in_bitmap, indexToPower(power));
+		auto num_of_entries = powerToSize(power);
+
+		if (index_in_bitmap + num_of_entries > ENTRIES_IN_BITMAP) {
+			header.bitmaps_[index_of_bitmap].allocate(index_in_bitmap, ENTRIES_IN_BITMAP - index_in_bitmap);
+			header.bitmaps_[index_of_bitmap + 1].allocate(0, num_of_entries - ENTRIES_IN_BITMAP + index_in_bitmap);
+		}
+		else {
+			header.bitmaps_[index_of_bitmap].allocate(index_in_bitmap, num_of_entries);
+		}
+
+		header.mutex_.unlock();
 
 		return ret;
 	}
@@ -69,14 +83,65 @@ namespace os2bn140314d {
 		}
 
 		auto power = greaterOrEqualPowerOfTwo(size);
-		auto index = powerToIndex(power);
+		auto index = sizeToPower(power);
 
 		deallocatePowerOfTwo(memory, index);
-
 	}
 
 	void Buddy::deallocatePowerOfTwo(void * memory, size_t power) throw (std::invalid_argument) {
-		// TODO: Implementation
+		auto &header = AllocatorUtility::buddyHeader();
+
+		auto block = reinterpret_cast<Block *>(memory);
+
+		if (block < header.memory_ || block >= header.memory_ + header.number_of_blocks_) {
+			throw std::invalid_argument("Memory address not a part of the buddy allocator");
+		}
+
+		header.mutex_.lock();
+
+		auto index_of_bitmap = header.indexOfBitmap(block);
+		auto index_in_bitmap = header.indexInBitmap(block);
+		
+		auto num_of_entries = powerToSize(power);
+
+		if (index_in_bitmap + num_of_entries > ENTRIES_IN_BITMAP) {
+			header.bitmaps_[index_of_bitmap].deallocate(index_in_bitmap, ENTRIES_IN_BITMAP - index_in_bitmap);
+			header.bitmaps_[index_of_bitmap + 1].deallocate(0, num_of_entries - ENTRIES_IN_BITMAP + index_in_bitmap);
+		}
+		else {
+			header.bitmaps_[index_of_bitmap].deallocate(index_in_bitmap, num_of_entries);
+		}
+
+		auto current_power = power;
+		auto current_block = block;
+
+		while (true) {
+			current_block->info.index = current_power;
+
+			BlockList::insert(header.pointers_[current_power], current_block);
+
+			auto left = header.leftBuddy(current_block, current_power);
+			auto right = header.rightBuddy(current_block, current_power);
+
+			if (header.isInRange(left) &&
+				header.isInRange(right) &&
+				header.isFree(left) && 
+				header.isFree(right) && 
+				left->info.index == current_power && 
+				right->info.index == current_power)
+			{
+				BlockList::remove(header.pointers_[current_power], left);
+				BlockList::remove(header.pointers_[current_power], right);
+
+				left->info.index = current_power + 1;
+				BlockList::insert(header.pointers_[current_power + 1], left);
+			}
+			else {
+				break;
+			}
+		}
+
+		header.mutex_.unlock();
 	}
 
 	bool Buddy::isPowerOfTwo(size_t number) noexcept {
@@ -115,7 +180,7 @@ namespace os2bn140314d {
 		return ret;
 	}
 
-	size_t Buddy::powerToIndex(size_t number) throw (std::invalid_argument) {
+	size_t Buddy::sizeToPower(size_t number) throw (std::invalid_argument) {
 		if (!isPowerOfTwo(number)) {
 			throw std::invalid_argument("Number is not a power of two");
 		}
@@ -130,12 +195,12 @@ namespace os2bn140314d {
 		return ret;
 	}
 
-	size_t Buddy::indexToPower(size_t index) throw (std::out_of_range) {
-		if (index > sizeof(size_t) * BITS_IN_BYTE) {
+	size_t Buddy::powerToSize(size_t power) throw (std::out_of_range) {
+		if (power > sizeof(size_t) * BITS_IN_BYTE) {
 			throw std::out_of_range("Power of two index out of range");
 		}
 
-		return 1 << index;
+		return 1 << power;
 	}
 
 	#pragma endregion 
@@ -205,6 +270,8 @@ namespace os2bn140314d {
 			throw std::invalid_argument("Too few blocks for the buddy allocator");
 		}
 
+		new (&mutex_) std::mutex();
+
 		initializePointers();
 		initializeBitmaps(first_block, size_in_blocks);
 
@@ -216,7 +283,7 @@ namespace os2bn140314d {
 
 		while (remaining_size > 0) {
 			auto power = Buddy::smallerOrEqualPowerOfTwo(remaining_size);
-			auto index = Buddy::powerToIndex(power);
+			auto index = Buddy::sizeToPower(power);
 
 			remaining_blocks->info.index = index;
 			BlockList::insert(pointers_[index], remaining_blocks);
@@ -235,10 +302,10 @@ namespace os2bn140314d {
 	void buddy_header_s::initializeBitmaps(Block * first_block, size_t size_in_blocks) noexcept {
 		number_of_bitmaps_ = numOfBitmaps(size_in_blocks);
 
-		auto bitmap_array = reinterpret_cast<BitMapBlock *>(first_block);
+		bitmaps_ = reinterpret_cast<BitMapBlock *>(first_block);
 
 		for (size_t i = 0; i < number_of_bitmaps_; i++) {
-			bitmap_array[i].initialize();
+			bitmaps_[i].initialize();
 		}
 	}
 
@@ -269,6 +336,55 @@ namespace os2bn140314d {
 
 		auto dist = block - memory_;
 		return dist % ENTRIES_IN_BITMAP;
+	}
+
+	Block *buddy_header_s::leftBuddy(Block *block, size_t power) const throw(std::invalid_argument) {
+		auto size = Buddy::powerToSize(power + 1);
+
+		if (block < memory_ || block > memory_ + number_of_blocks_) {
+			throw std::invalid_argument("Block not in buddy address space");
+		}
+
+		auto diff = block - memory_;
+
+		if (diff % size == 0) {
+			return block;
+		}
+		else {
+			return block - size;
+		}
+	}
+
+	Block * buddy_header_s::rightBuddy(Block * block, size_t power) const throw(std::invalid_argument) {
+		auto size = Buddy::powerToSize(power + 1);
+
+		if (block < memory_ || block > memory_ + number_of_blocks_) {
+			throw std::invalid_argument("Block not in buddy address space");
+		}
+
+		auto diff = block - memory_;
+
+		if (diff % size == 0) {
+			return block + size;
+		}
+		else {
+			return block;
+		}
+	}
+
+	bool buddy_header_s::isFree(Block *block) const throw(std::invalid_argument) {
+		if (block < memory_ || block >= memory_ + number_of_blocks_) {
+			throw std::invalid_argument("Block not in buddy range");
+		}
+
+		auto index_of_bitmap = indexOfBitmap(block);
+		auto index_in_bitmap = indexInBitmap(block);
+
+		return bitmaps_[index_of_bitmap].isFree(index_in_bitmap);
+	}
+
+	bool buddy_header_s::isInRange(Block *block) const noexcept {
+		return block >= memory_ && block < memory_ + number_of_blocks_;
 	}
 
 	#pragma endregion  

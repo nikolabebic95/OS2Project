@@ -14,7 +14,10 @@ namespace os2bn140314d {
 
 		new_block->info.next = head;
 		new_block->info.prev = nullptr;		
-		head->info.prev = new_block;
+
+		if (head != nullptr) {
+			head->info.prev = new_block;
+		}
 
 		head = new_block;
 	}
@@ -26,8 +29,11 @@ namespace os2bn140314d {
 
 		auto old_head = head;
 		head = head->info.next;
-		head->info.prev = nullptr;
-		
+
+		if (head != nullptr) {
+			head->info.prev = nullptr;
+		}
+
 		old_head->info.next = nullptr;
 		return old_head;
 	}

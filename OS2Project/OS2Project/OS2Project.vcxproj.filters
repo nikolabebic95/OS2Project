@@ -9,11 +9,11 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
+    <Filter Include="BuddyTest1">
+      <UniqueIdentifier>{2b770887-9991-49b1-a46b-b64ca92a2c76}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Slab.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -26,11 +26,11 @@
     <ClCompile Include="src\BlockList.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="BuddyTest1\BuddyTest1.cpp">
+      <Filter>BuddyTest1</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="h\DummyHeader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="h\Slab.h">
       <Filter>Header Files</Filter>
     </ClInclude>

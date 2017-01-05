@@ -8,6 +8,7 @@
 
 #include <stdexcept> // bad_alloc, invalid_argument, overflow_error
 #include "Definitions.h"
+#include <mutex>
 
 namespace os2bn140314d {
 	
@@ -85,9 +86,12 @@ namespace os2bn140314d {
 		/**
 		 * \brief Conversion from y to x in 2^x = y
 		 */
-		static size_t powerToIndex(size_t number) throw (std::invalid_argument);
+		static size_t sizeToPower(size_t number) throw (std::invalid_argument);
 
-		static size_t indexToPower(size_t index) throw (std::out_of_range);
+		/**
+		 * \brief Conversion from x to y in 2^x = y
+		 */
+		static size_t powerToSize(size_t power) throw (std::out_of_range);
 
 		#pragma endregion 
 	};
@@ -112,25 +116,28 @@ namespace os2bn140314d {
 	};
 
 	struct buddy_header_s {
-		friend class Buddy;
-
-	public:
-		// TODO: Add more fields
 		Block *pointers_[POWERS_OF_TWO];
 		size_t number_of_bitmaps_;
 		BitMapBlock *bitmaps_;
 		Block *memory_;
 		size_t number_of_blocks_;
+		std::mutex mutex_;
 
 		void initialize(Block *first_block, size_t size_in_blocks) throw (std::invalid_argument);
 
-	private:
 		void initializePointers() noexcept;
 		void initializeBitmaps(Block *first_block, size_t size_in_blocks) noexcept;
 
 		static size_t numOfBitmaps(size_t size_in_blocks) noexcept;
 		size_t indexOfBitmap(Block *block) const throw (std::invalid_argument);
 		size_t indexInBitmap(Block *block) const throw (std::invalid_argument);
+
+		Block *leftBuddy(Block *block, size_t power) const throw (std::invalid_argument);
+		Block *rightBuddy(Block *block, size_t power) const throw (std::invalid_argument);
+
+		bool isFree(Block *block) const throw (std::invalid_argument);
+
+		bool isInRange(Block *block) const noexcept;
 	};
 }
 

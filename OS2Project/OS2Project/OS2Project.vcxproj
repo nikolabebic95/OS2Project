@@ -150,10 +150,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BuddyTest1\BuddyTest1.cpp" />
     <ClCompile Include="src\AllocatorUtility.cpp" />
     <ClCompile Include="src\BlockList.cpp" />
     <ClCompile Include="src\Buddy.cpp" />
-    <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\Slab.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -161,7 +161,6 @@
     <ClInclude Include="h\BlockList.h" />
     <ClInclude Include="h\Buddy.h" />
     <ClInclude Include="h\Definitions.h" />
-    <ClInclude Include="h\DummyHeader.h" />
     <ClInclude Include="h\Slab.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
