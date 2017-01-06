@@ -17,6 +17,9 @@ namespace os2bn140314d {
 		// TODO: Add fields
 	};
 
+	/**
+	 * \brief All the data needed for the allocator. Kept in the first block of allocated memory
+	 */
 	struct header_s {
 		size_t size_in_blocks_;
 		buddy_header_s buddy_header_;
@@ -25,6 +28,9 @@ namespace os2bn140314d {
 		void initialize(Block *first_pool_block, size_t size_in_blocks) throw (std::invalid_argument);
 	};
 
+	/**
+	 * \brief First block of allocated memory
+	 */
 	union Header {
 		header_s header_;
 		Block block_;

@@ -34,20 +34,27 @@ namespace os2bn140314d {
 
 		Block *ret;
 
+		// There exists no block with the given size
+		// Should check if there is a greater block, split it, and return the smaller block
 		if (pointer == nullptr) {
 			auto bigger_power = power;
+
+			// Find the size of the greater block
 			while (bigger_power < POWERS_OF_TWO && header.pointers_[bigger_power] == nullptr) {
 				bigger_power++;
 			}
 
+			// The greater block does not exist
+			// Error - no more available memory
 			if (bigger_power == POWERS_OF_TWO) {
-				// No more available memory
 				header.mutex_.unlock();
 				throw std::bad_alloc();
 			}
 
 			ret = BlockList::remove(header.pointers_[bigger_power]);
 
+			// Split the block in half until the wanted size
+			// Insert the right halves back into the lists
 			while (bigger_power != power) {
 				bigger_power--;
 				
@@ -60,6 +67,7 @@ namespace os2bn140314d {
 			ret = BlockList::remove(header.pointers_[power]);
 		}
 
+		// Mark memory as allocated
 		auto index_of_bitmap = header.indexOfBitmap(ret);
 		auto index_in_bitmap = header.indexInBitmap(ret);
 
@@ -101,6 +109,7 @@ namespace os2bn140314d {
 
 		header.mutex_.lock();
 
+		// Mark memory as deallocated
 		auto index_of_bitmap = header.indexOfBitmap(block);
 		auto index_in_bitmap = header.indexInBitmap(block);
 		
@@ -117,6 +126,9 @@ namespace os2bn140314d {
 		auto current_power = power;
 		auto current_block = block;
 
+		// Insert the block back into the list
+		// If the block could merge with its buddy, merge them
+		// Repeat as long as there are merges, and buddies exist
 		while (true) {
 			current_block->info.index = current_power;
 
@@ -125,6 +137,10 @@ namespace os2bn140314d {
 			auto left = header.leftBuddy(current_block, current_power);
 			auto right = header.rightBuddy(current_block, current_power);
 
+			// Checks:
+			//   1) Both blocks in range
+			//   2) Both blocks free
+			//   3) Both blocks the same size
 			if (header.isInRange(left) &&
 				header.isInRange(right) &&
 				header.isFree(left) && 
@@ -323,7 +339,7 @@ namespace os2bn140314d {
 	}
 
 	size_t buddy_header_s::indexOfBitmap(Block *block) const throw(std::invalid_argument) {
-		if (block == nullptr || block < memory_ || block > memory_ + number_of_blocks_) {
+		if (!isInRange(block)) {
 			throw std::invalid_argument("Block not inside allocated space");
 		}
 
@@ -332,7 +348,7 @@ namespace os2bn140314d {
 	}
 
 	size_t buddy_header_s::indexInBitmap(Block *block) const throw(std::invalid_argument) {
-		if (block == nullptr || block < memory_ || block > memory_ + number_of_blocks_) {
+		if (!isInRange(block)) {
 			throw std::invalid_argument("Block not inside allocated space");
 		}
 
@@ -343,7 +359,7 @@ namespace os2bn140314d {
 	Block *buddy_header_s::leftBuddy(Block *block, size_t power) const throw(std::invalid_argument) {
 		auto size = Buddy::powerToSize(power);
 
-		if (block < memory_ || block > memory_ + number_of_blocks_) {
+		if (!isInRange(block)) {
 			throw std::invalid_argument("Block not in buddy address space");
 		}
 
@@ -360,7 +376,7 @@ namespace os2bn140314d {
 	Block * buddy_header_s::rightBuddy(Block * block, size_t power) const throw(std::invalid_argument) {
 		auto size = Buddy::powerToSize(power);
 
-		if (block < memory_ || block > memory_ + number_of_blocks_) {
+		if (!isInRange(block)) {
 			throw std::invalid_argument("Block not in buddy address space");
 		}
 
@@ -375,10 +391,6 @@ namespace os2bn140314d {
 	}
 
 	bool buddy_header_s::isFree(Block *block) const throw(std::invalid_argument) {
-		if (block < memory_ || block >= memory_ + number_of_blocks_) {
-			throw std::invalid_argument("Block not in buddy range");
-		}
-
 		auto index_of_bitmap = indexOfBitmap(block);
 		auto index_in_bitmap = indexInBitmap(block);
 

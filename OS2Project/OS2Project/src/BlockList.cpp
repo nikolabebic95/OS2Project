@@ -12,6 +12,7 @@ namespace os2bn140314d {
 			throw std::invalid_argument("Block which should be inserted is nullptr");
 		}
 
+		// Inserting to the beginning of the list
 		new_block->info.next = head;
 		new_block->info.prev = nullptr;		
 

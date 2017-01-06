@@ -17,6 +17,8 @@ namespace os2bn140314d {
 	class BlockList final {
 	public:
 
+		#pragma region Public interface
+
 		/**
 		 * \brief Insert one block into the list
 		 * \param head Reference to the pointer to the beginning of the list
@@ -31,15 +33,17 @@ namespace os2bn140314d {
 
 		static void remove(Block *&head, Block *block) throw (std::invalid_argument);
 
+		#pragma endregion 
+
 	private:
 
-	#pragma region Delete constructors
+		#pragma region Delete constructors
 
 		BlockList() = delete;
 		BlockList(const BlockList &) = delete;
 		void operator=(const BlockList &) = delete;
 
-	#pragma endregion
+		#pragma endregion
 
 	};
 
