@@ -71,7 +71,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);#(VC_SourcePath)/../h/</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);#(VC_SourcePath)/../h/;#(VC_SourcePath)/../test/</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -150,11 +150,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="BuddyTest1\BuddyTest1.cpp" />
     <ClCompile Include="src\AllocatorUtility.cpp" />
     <ClCompile Include="src\BlockList.cpp" />
     <ClCompile Include="src\Buddy.cpp" />
     <ClCompile Include="src\Slab.cpp" />
+    <ClCompile Include="test\buddy\MultipleThreads\MultipleThreads.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="h\AllocatorUtility.h" />
@@ -162,6 +162,7 @@
     <ClInclude Include="h\Buddy.h" />
     <ClInclude Include="h\Definitions.h" />
     <ClInclude Include="h\Slab.h" />
+    <ClInclude Include="test\TestHelpers.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

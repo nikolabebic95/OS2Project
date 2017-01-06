@@ -9,8 +9,8 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
-    <Filter Include="BuddyTest1">
-      <UniqueIdentifier>{2b770887-9991-49b1-a46b-b64ca92a2c76}</UniqueIdentifier>
+    <Filter Include="Test">
+      <UniqueIdentifier>{81c477a2-55c1-4db9-b005-de17a58ee61b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -26,8 +26,8 @@
     <ClCompile Include="src\BlockList.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="BuddyTest1\BuddyTest1.cpp">
-      <Filter>BuddyTest1</Filter>
+    <ClCompile Include="test\buddy\MultipleThreads\MultipleThreads.cpp">
+      <Filter>Test</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -45,6 +45,9 @@
     </ClInclude>
     <ClInclude Include="h\BlockList.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="test\TestHelpers.h">
+      <Filter>Test</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -17,6 +17,9 @@ namespace os2bn140314d {
 
 			return allocatePowerOfTwo(index);
 		}
+		catch (std::bad_alloc &) {
+			throw;
+		}
 		catch (std::exception &) {
 			throw std::bad_alloc();
 		}
@@ -43,19 +46,18 @@ namespace os2bn140314d {
 				throw std::bad_alloc();
 			}
 
-			pointer = header.pointers_[bigger_power];
-			ret = BlockList::remove(pointer);
+			ret = BlockList::remove(header.pointers_[bigger_power]);
 
 			while (bigger_power != power) {
 				bigger_power--;
 				
-				auto second_pointer = ret + bigger_power;
+				auto second_pointer = ret + powerToSize(bigger_power);
 				second_pointer->info.index = bigger_power;
 				BlockList::insert(header.pointers_[bigger_power], second_pointer);
 			}
 		}
 		else {
-			ret = BlockList::remove(pointer);
+			ret = BlockList::remove(header.pointers_[power]);
 		}
 
 		auto index_of_bitmap = header.indexOfBitmap(ret);
@@ -133,8 +135,8 @@ namespace os2bn140314d {
 				BlockList::remove(header.pointers_[current_power], left);
 				BlockList::remove(header.pointers_[current_power], right);
 
-				left->info.index = current_power + 1;
-				BlockList::insert(header.pointers_[current_power + 1], left);
+				current_power++;
+				current_block = left;
 			}
 			else {
 				break;
@@ -224,7 +226,7 @@ namespace os2bn140314d {
 	bool BitMapBlock::isFree(size_t index) const throw(std::out_of_range) {
 		auto i = indexOfByte(index);
 		auto m = mask(index);
-		return (bytes[i] & m) != 0;
+		return (bytes[i] & m) == 0;
 	}
 
 	size_t BitMapBlock::indexOfByte(size_t index) throw(std::out_of_range) {
@@ -339,7 +341,7 @@ namespace os2bn140314d {
 	}
 
 	Block *buddy_header_s::leftBuddy(Block *block, size_t power) const throw(std::invalid_argument) {
-		auto size = Buddy::powerToSize(power + 1);
+		auto size = Buddy::powerToSize(power);
 
 		if (block < memory_ || block > memory_ + number_of_blocks_) {
 			throw std::invalid_argument("Block not in buddy address space");
@@ -356,7 +358,7 @@ namespace os2bn140314d {
 	}
 
 	Block * buddy_header_s::rightBuddy(Block * block, size_t power) const throw(std::invalid_argument) {
-		auto size = Buddy::powerToSize(power + 1);
+		auto size = Buddy::powerToSize(power);
 
 		if (block < memory_ || block > memory_ + number_of_blocks_) {
 			throw std::invalid_argument("Block not in buddy address space");
