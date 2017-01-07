@@ -121,7 +121,7 @@ namespace os2bn140314d {
 	 * \brief Struct representing one block of memory that acts as a bitmap indexing other blocks
 	 */
 	struct BitMapBlock {
-		unsigned char bytes[BLOCK_SIZE];
+		byte bytes[BLOCK_SIZE];
 
 		/**
 		 * \brief Initialize bitmap
@@ -168,7 +168,7 @@ namespace os2bn140314d {
 		 * \return Mask with one bit set
 		 * \throw out_of_range Thrown when block index is out of range
 		 */
-		static unsigned char mask(size_t index) throw (std::out_of_range);
+		static byte mask(size_t index) throw (std::out_of_range);
 
 		/**
 		 * \brief Set or reset a specific bit

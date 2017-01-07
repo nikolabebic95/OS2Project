@@ -29,6 +29,15 @@
     <ClCompile Include="test\buddy\MultipleThreads\MultipleThreads.cpp">
       <Filter>Test</Filter>
     </ClCompile>
+    <ClCompile Include="src\SlabUtility.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SlabStructs.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SlabList.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="h\Slab.h">
@@ -48,6 +57,15 @@
     </ClInclude>
     <ClInclude Include="test\TestHelpers.h">
       <Filter>Test</Filter>
+    </ClInclude>
+    <ClInclude Include="h\SlabUtility.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="h\SlabStructs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="h\SlabList.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

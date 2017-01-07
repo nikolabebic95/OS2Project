@@ -18,7 +18,7 @@ void kmem_init(void *space, int block_num);
 /**
  * \brief Allocate cache
  * \param name Name of the cache
- * \param size Size of the cache
+ * \param size Size of the object in cache
  * \param ctor Constructor
  * \param dtor Destructor
  * \return Cache object

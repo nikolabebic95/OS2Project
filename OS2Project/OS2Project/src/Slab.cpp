@@ -4,9 +4,12 @@
  */
 
 #include "Slab.h"
+#include "AllocatorUtility.h"
+
+using namespace os2bn140314d;
 
 void kmem_init(void *space, int block_num) {
-	// TODO: Implementation
+	AllocatorUtility::initialize(space, block_num);
 }
 
 kmem_cache_t *kmem_cache_create(const char *name, size_t size, void(*ctor)(void *), void(*dtor)(void *)) {
