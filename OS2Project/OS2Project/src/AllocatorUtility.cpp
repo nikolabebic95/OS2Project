@@ -10,12 +10,11 @@ namespace os2bn140314d {
 	#pragma region header_s implementation
 
 	void header_s::initialize(Block *first_pool_block, size_t size_in_blocks) throw (std::invalid_argument) {
-		if (size_in_blocks_ == 0) {
+		if (size_in_blocks == 0) {
 			throw std::invalid_argument("Size of the memory must be greater than 0");
 		}
 
-		size_in_blocks_ = size_in_blocks;
-		buddy_header_.initialize(first_pool_block, size_in_blocks_);
+		buddy_header_.initialize(first_pool_block, size_in_blocks);
 		slab_header_.initialize();
 
 		new (&write_mutex_) std::mutex;
@@ -45,7 +44,7 @@ namespace os2bn140314d {
 		return memory_start_;
 	}
 
-	const Block *AllocatorUtility::blockStart(const void * memory) {
+	const Block *AllocatorUtility::blockStart(const void * memory) noexcept {
 		auto start = reinterpret_cast<const byte *>(memory_start_);
 		auto pointer = reinterpret_cast<const byte *>(memory);
 
@@ -54,16 +53,15 @@ namespace os2bn140314d {
 		return reinterpret_cast<const Block *>(pointer - diff % BLOCK_SIZE);
 	}
 
-	void AllocatorUtility::writeLock() {
+	void AllocatorUtility::writeLock() noexcept {
 		auto &header = AllocatorUtility::header();
 		header.write_mutex_.lock();
 	}
 
-	void AllocatorUtility::writeUnlock() {
+	void AllocatorUtility::writeUnlock() noexcept {
 		auto &header = AllocatorUtility::header();
 		header.write_mutex_.unlock();
 	}
-
 
 	header_s &AllocatorUtility::header() noexcept {
 		auto &header = *static_cast<Header *>(memory_start_);

@@ -11,7 +11,6 @@ typedef struct kmem_cache_s kmem_cache_t;
 const size_t BLOCK_SIZE = 4096;
 const size_t CACHE_L1_LINE_SIZE = 64;
 
-
 /**
  * \brief Initialize the allocator
  * \param space Pointer to the memory which the allocator can use

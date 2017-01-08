@@ -1,17 +1,18 @@
 /**
 * \file CacheHeaderList.h
-* \brief File providing the functions for the manipulation with the lists of cache header blocks
+* \brief File providing the functions for the manipulation of the lists of cache header blocks
 */
 
 #ifndef _cacheblocklist_h_
 #define _cacheblocklist_h_
-#include <stdexcept>
+
+#include <stdexcept> // underflow_error
 
 namespace os2bn140314d {
 	struct cache_block_header_s;
 
 	/**
-	 * \brief Class providing the functions for the manipulations with the lists of cache header blocks
+	 * \brief Class providing the functions for the manipulations of the lists of cache header blocks
 	 */
 	class CacheBlockList {
 	public:

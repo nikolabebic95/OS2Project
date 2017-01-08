@@ -1,3 +1,8 @@
+/**
+* \file Buddy.cpp
+* \brief File implementing the interface for the buddy allocator
+*/
+
 #include "Buddy.h"
 #include "AllocatorUtility.h"
 #include "BlockList.h"

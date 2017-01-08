@@ -1,3 +1,8 @@
+/**
+* \file Definitions.h
+* \brief File providing the constants and type definitions used by the allocator
+*/
+
 #ifndef _definitions_h_
 #define _definitions_h_
 

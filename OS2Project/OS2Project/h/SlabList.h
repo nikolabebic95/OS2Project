@@ -5,7 +5,8 @@
 
 #ifndef _slablist_h_
 #define _slablist_h_
-#include <stdexcept>
+
+#include <stdexcept> // underflow_error
 
 namespace os2bn140314d {
 
@@ -43,7 +44,7 @@ namespace os2bn140314d {
 		/**
 		 * \brief Searches for the slab containing the object
 		 * \param object Pointer to the object
-		 * \return Pointer to the slab containing the slab, or null if there is no such slab
+		 * \return Pointer to the slab containing the object, or null if there is no such slab
 		 */
 		slab_s *get(void *object) const noexcept;
 

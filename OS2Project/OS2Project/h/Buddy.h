@@ -118,7 +118,7 @@ namespace os2bn140314d {
 	 * \brief Struct representing one block of memory that acts as a bitmap indexing other blocks
 	 */
 	struct BitMapBlock {
-		byte bytes[BLOCK_SIZE];
+		byte bytes[BLOCK_SIZE]; /**< Array of bytes used for the bitmap */
 
 		/**
 		 * \brief Initialize bitmap
@@ -186,15 +186,15 @@ namespace os2bn140314d {
 	};
 
 	/**
-	 * \brief Header needed by buddy allocator
+	 * \brief Header needed by the buddy allocator
 	 */
 	struct buddy_header_s {
-		Block *pointers_[POWERS_OF_TWO];
-		size_t number_of_bitmaps_;
-		BitMapBlock *bitmaps_;
-		Block *memory_;
-		size_t number_of_blocks_;
-		std::mutex mutex_;
+		Block *pointers_[POWERS_OF_TWO];	/**< Array of pointers to the heads of the lists for each size */
+		size_t number_of_bitmaps_;			/**< Number of bitmap blocks used by the allocator */
+		BitMapBlock *bitmaps_;				/**< Pointer to the array of bitmaps used by the allocator */
+		Block *memory_;						/**< Pointer to the start of the memory pool available for the allocator */
+		size_t number_of_blocks_;			/**< Number of blocks available in the pool */
+		std::mutex mutex_;					/**< Mutex used for mutual exclusion */
 
 		/**
 		 * \brief Initialize the struct

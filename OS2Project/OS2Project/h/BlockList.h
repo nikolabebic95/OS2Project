@@ -28,9 +28,18 @@ namespace os2bn140314d {
 
 		/**
 		 * \brief Remove one block from the list, and return it
+		 * \param head Pointer to the head of the list
+		 * \return Pointer to the removed block
+		 * \throw underflow_error Thrown when the list is empty
 		 */
 		static Block *remove(Block *&head) throw (std::underflow_error);
 
+		/**
+		 * \brief Remove one specific block from the list
+		 * \param head Pointer to the head of the list
+		 * \param block Pointer to the block
+		 * \throw invalid_argument Thrown when the list is empty
+		 */
 		static void remove(Block *&head, Block *block) throw (std::invalid_argument);
 
 		#pragma endregion 

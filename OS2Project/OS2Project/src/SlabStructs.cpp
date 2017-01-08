@@ -1,3 +1,8 @@
+/**
+* \file SlabStructs.h
+* \brief File implementing the structures used by the slab allocator
+*/
+
 #include "SlabStructs.h"
 #include "Buddy.h"
 #include <ostream>

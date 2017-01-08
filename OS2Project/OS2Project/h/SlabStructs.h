@@ -6,11 +6,11 @@
 #ifndef _slabstructs_h_
 #define _slabstructs_h_
 
-#include <mutex> // Mutex
+#include <mutex> // mutex
 #include "Definitions.h" // MAX_NAME_LENGTH
-#include "SlabList.h"
-#include "CacheHeaderList.h"
-#include "CacheBlockList.h"
+#include "SlabList.h" // SlabList
+#include "CacheHeaderList.h" // CacheHeaderList
+#include "CacheBlockList.h" // CacheBlockList
 
 namespace os2bn140314d {
 	struct cache_header_s;
@@ -301,21 +301,19 @@ namespace os2bn140314d {
 		#pragma endregion 
 	};
 
-	union CacheHeaderBlock {
-		cache_block_header_s info;
-		Block block;
-	};
-
 	struct slab_header_s {
 		static const size_t BUFFER_SIZES_LOWER_BOUND = 5;
 		static const size_t BUFFER_SIZES_UPPER_BOUND = 17;
 
 		#pragma region Fields
 
-		CacheBlockList headers_;
+		CacheBlockList headers_;	/**< List of header blocks */
 
-		std::mutex mutex_;
+		std::mutex mutex_;			/**< Mutex used for mutual exclusion */
 
+		/**
+		 * \brief List of pointers to the small memory buffer cache headers
+		 */
 		cache_header_s *buffers_[BUFFER_SIZES_UPPER_BOUND - BUFFER_SIZES_LOWER_BOUND];
 
 		#pragma endregion 
