@@ -551,6 +551,8 @@ namespace os2bn140314d {
 				mutex_.unlock();
 				return ret;
 			}
+
+			header_block = header_block->next_;
 		}
 
 		mutex_.unlock();
