@@ -8,7 +8,7 @@
 
 namespace os2bn140314d {
 	void SlabList::insert(slab_s * element) noexcept {
-		if (first_ != nullptr) {
+		if (first_ == nullptr) {
 			first_ = element;
 		}
 		else {
@@ -37,6 +37,31 @@ namespace os2bn140314d {
 		else {
 			last_ = left;
 		}
+	}
+
+	slab_s *SlabList::first() const throw(std::underflow_error) {
+		if (first_ == nullptr) {
+			throw std::underflow_error("List is empty");
+		}
+
+		return first_;
+	}
+
+	bool SlabList::isEmpty() const noexcept {
+		return first_ == nullptr;
+	}
+
+	slab_s *SlabList::get(void * object) const noexcept {
+		auto curr = first_;
+		while (curr != nullptr) {
+			if (curr->contains(object)) {
+				return curr;
+			}
+
+			curr = curr->next_;
+		}
+
+		return nullptr;
 	}
 }
 

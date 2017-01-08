@@ -17,9 +17,6 @@ namespace os2bn140314d {
 	 */
 	class Buddy final {
 	public:
-
-		friend struct buddy_header_s; // Should access the private helpers
-
 		#pragma region Public interface
 
 		/**
@@ -55,6 +52,55 @@ namespace os2bn140314d {
 
 		#pragma endregion 
 
+		#pragma region Helpers
+
+		/**
+		* \brief Check whether the number is a power of two
+		* \param number Number to check
+		* \return True if power of two, false otherwise
+		*/
+		static bool isPowerOfTwo(size_t number) noexcept;
+
+		/**
+		* \brief Check whether the first bit in a number is 1
+		* \param number Number to check
+		* \return True if first bit is 1, false otherwise
+		*/
+		static bool isSignedNegative(size_t number) noexcept;
+
+		/**
+		* \brief Return the smallest power of two greater or equal to the number
+		* \param number Number to compare
+		* \return Power of two
+		* \throw overflow_error Thrown if no greater power of two in \c size_t range
+		*/
+		static size_t greaterOrEqualPowerOfTwo(size_t number) throw (std::overflow_error);
+
+		/**
+		* \brief Return the greatest power of two smaller or equal to the number
+		* \param number Number to compare
+		* \return Power of two
+		*/
+		static size_t smallerOrEqualPowerOfTwo(size_t number) noexcept;
+
+		/**
+		* \brief Conversion from y to x in 2^x = y
+		* \param number y in equation
+		* \return x in equation
+		* \throw invalid_argument Thrown when number is not a power of two
+		*/
+		static size_t sizeToPower(size_t number) throw (std::invalid_argument);
+
+		/**
+		* \brief Conversion from x to y in 2^x = y
+		* \param power x in equation
+		* \return y in equation
+		* \throw out_of_range Thrown when y is not in \c size_t range
+		*/
+		static size_t powerToSize(size_t power) throw (std::out_of_range);
+
+		#pragma endregion 
+
 	private:
 
 		#pragma region Delete constructors
@@ -64,55 +110,6 @@ namespace os2bn140314d {
 		void operator=(const Buddy &) = delete;
 
 		#pragma endregion
-
-		#pragma region Helpers
-
-		/**
-		 * \brief Check whether the number is a power of two
-		 * \param number Number to check
-		 * \return True if power of two, false otherwise
-		 */
-		static bool isPowerOfTwo(size_t number) noexcept;
-
-		/**
-		 * \brief Check whether the first bit in a number is 1
-		 * \param number Number to check
-		 * \return True if first bit is 1, false otherwise
-		 */
-		static bool isSignedNegative(size_t number) noexcept;
-
-		/**
-		 * \brief Return the smallest power of two greater or equal to the number
-		 * \param number Number to compare
-		 * \return Power of two
-		 * \throw overflow_error Thrown if no greater power of two in \c size_t range
-		 */
-		static size_t greaterOrEqualPowerOfTwo(size_t number) throw (std::overflow_error);
-
-		/**
-		 * \brief Return the greatest power of two smaller or equal to the number
-		 * \param number Number to compare
-		 * \return Power of two
-		 */
-		static size_t smallerOrEqualPowerOfTwo(size_t number) noexcept;
-
-		/**
-		 * \brief Conversion from y to x in 2^x = y
-		 * \param number y in equation
-		 * \return x in equation
-		 * \throw invalid_argument Thrown when number is not a power of two
-		 */
-		static size_t sizeToPower(size_t number) throw (std::invalid_argument);
-
-		/**
-		 * \brief Conversion from x to y in 2^x = y
-		 * \param power x in equation
-		 * \return y in equation
-		 * \throw out_of_range Thrown when y is not in \c size_t range
-		 */
-		static size_t powerToSize(size_t power) throw (std::out_of_range);
-
-		#pragma endregion 
 	};
 
 	#pragma region Structs

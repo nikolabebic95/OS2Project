@@ -26,9 +26,6 @@
     <ClCompile Include="src\BlockList.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="test\buddy\MultipleThreads\MultipleThreads.cpp">
-      <Filter>Test</Filter>
-    </ClCompile>
     <ClCompile Include="src\SlabUtility.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -37,6 +34,18 @@
     </ClCompile>
     <ClCompile Include="src\SlabList.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CacheHeaderList.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CacheBlockList.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="test\public_test\main.cpp">
+      <Filter>Test</Filter>
+    </ClCompile>
+    <ClCompile Include="test\public_test\test.cpp">
+      <Filter>Test</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -55,9 +64,6 @@
     <ClInclude Include="h\BlockList.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="test\TestHelpers.h">
-      <Filter>Test</Filter>
-    </ClInclude>
     <ClInclude Include="h\SlabUtility.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -66,6 +72,15 @@
     </ClInclude>
     <ClInclude Include="h\SlabList.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="h\CacheHeaderList.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="h\CacheBlockList.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="test\public_test\test.h">
+      <Filter>Test</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

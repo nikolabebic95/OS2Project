@@ -6,7 +6,11 @@
 #ifndef _slab_h_
 #define _slab_h_
 
-#include "Definitions.h" // kmem_cache_t
+typedef struct kmem_cache_s kmem_cache_t;
+
+const size_t BLOCK_SIZE = 4096;
+const size_t CACHE_L1_LINE_SIZE = 64;
+
 
 /**
  * \brief Initialize the allocator
@@ -38,6 +42,7 @@ int kmem_cache_shrink(kmem_cache_t *cachep);
 /**
  * \brief Allocate one object from cache
  * \param cachep Pointer to the cache
+ * \return Allocated object
  */
 void *kmem_cache_alloc(kmem_cache_t *cachep);
 
@@ -50,14 +55,14 @@ void kmem_cache_free(kmem_cache_t *cachep, void *objp);
 
 /**
  * \brief Allocate one small memory buffer
- * \size Size of the buffer
+ * \param size Size of the buffer
  * \return Pointer to the allocated buffer
  */
 void *kmalloc(size_t size);
 
 /**
  * \brief Deallocate one small memory buffer
- * \objp Pointer to a buffer obtained by \c kmalloc
+ * \param objp Pointer to a buffer obtained by \c kmalloc
  */
 void kfree(const void *objp);
 
@@ -76,6 +81,7 @@ void kmem_cache_info(kmem_cache_t *cachep);
 /**
  * \brief Print error message
  * \param cachep Pointer to the cache
+ * \return Error code
  */
 int kmem_cache_error(kmem_cache_t *cachep);
 

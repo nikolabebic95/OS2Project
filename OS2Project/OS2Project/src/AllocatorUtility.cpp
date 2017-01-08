@@ -16,7 +16,9 @@ namespace os2bn140314d {
 
 		size_in_blocks_ = size_in_blocks;
 		buddy_header_.initialize(first_pool_block, size_in_blocks_);
-		// TODO: Initialize slab header
+		slab_header_.initialize();
+
+		new (&write_mutex_) std::mutex;
 	}
 
 	#pragma endregion
@@ -42,6 +44,26 @@ namespace os2bn140314d {
 	void *AllocatorUtility::memoryStart() noexcept {
 		return memory_start_;
 	}
+
+	const Block *AllocatorUtility::blockStart(const void * memory) {
+		auto start = reinterpret_cast<const byte *>(memory_start_);
+		auto pointer = reinterpret_cast<const byte *>(memory);
+
+		auto diff = pointer - start;
+
+		return reinterpret_cast<const Block *>(pointer - diff % BLOCK_SIZE);
+	}
+
+	void AllocatorUtility::writeLock() {
+		auto &header = AllocatorUtility::header();
+		header.write_mutex_.lock();
+	}
+
+	void AllocatorUtility::writeUnlock() {
+		auto &header = AllocatorUtility::header();
+		header.write_mutex_.unlock();
+	}
+
 
 	header_s &AllocatorUtility::header() noexcept {
 		auto &header = *static_cast<Header *>(memory_start_);
