@@ -159,8 +159,7 @@
     <ClCompile Include="src\SlabList.cpp" />
     <ClCompile Include="src\SlabStructs.cpp" />
     <ClCompile Include="src\SlabUtility.cpp" />
-    <ClCompile Include="test\public_test\main.cpp" />
-    <ClCompile Include="test\public_test\test.cpp" />
+    <ClCompile Include="test\slab\FullMemoryTest\FullMemoryTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="h\AllocatorUtility.h" />
@@ -173,7 +172,6 @@
     <ClInclude Include="h\SlabList.h" />
     <ClInclude Include="h\SlabStructs.h" />
     <ClInclude Include="h\SlabUtility.h" />
-    <ClInclude Include="test\public_test\test.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

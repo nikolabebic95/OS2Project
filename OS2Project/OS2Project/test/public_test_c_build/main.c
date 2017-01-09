@@ -7,7 +7,7 @@
 
 #define BLOCK_NUMBER (1000)
 #define THREAD_NUM (5)
-#define ITERATIONS (100)
+#define ITERATIONS (1000)
 
 #define shared_size (7)
 
@@ -38,7 +38,7 @@ int work(struct data_s data) {
 	sprintf_s(buffer, 1024, "thread cache %d", data.id);
 	kmem_cache_t *cache = kmem_cache_create(buffer, data.id, 0, 0);
 
-	struct objects_s *objs = (struct objects_s *)kmalloc(sizeof(struct objects_s) * data.iterations);
+	struct objects_s *objs = kmalloc(sizeof(struct objects_s) * data.iterations);
 
 	for (int i = 0; i < data.iterations; i++) {
 		if (i % 100 == 0) {

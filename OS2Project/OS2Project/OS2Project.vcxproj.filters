@@ -41,10 +41,7 @@
     <ClCompile Include="src\CacheBlockList.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="test\public_test\main.cpp">
-      <Filter>Test</Filter>
-    </ClCompile>
-    <ClCompile Include="test\public_test\test.cpp">
+    <ClCompile Include="test\slab\FullMemoryTest\FullMemoryTest.cpp">
       <Filter>Test</Filter>
     </ClCompile>
   </ItemGroup>
@@ -78,9 +75,6 @@
     </ClInclude>
     <ClInclude Include="h\CacheBlockList.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="test\public_test\test.h">
-      <Filter>Test</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

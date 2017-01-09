@@ -389,6 +389,7 @@ namespace os2bn140314d {
 			os << "No errors" << std::endl;
 			auto ret = error_;
 			AllocatorUtility::writeUnlock();
+			mutex_.unlock();
 			return ret;
 		}
 		if (error_ & NO_MORE_SPACE) {
