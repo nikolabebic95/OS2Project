@@ -16,6 +16,8 @@ std::vector<int *> vectors[NUM_OF_THREADS];
 
 std::mutex write_mutex;
 
+std::mutex error_mutex;
+
 bool error = false;
 
 int random() {
@@ -41,7 +43,9 @@ void threadDeallocBody(int index) {
 		auto pointer = vectors[index][i];
 
 		if (*pointer != index) {
+			error_mutex.lock();
 			error = true;
+			error_mutex.unlock();
 		}
 
 		kmem_cache_free(cache, pointer);
