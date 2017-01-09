@@ -159,7 +159,7 @@
     <ClCompile Include="src\SlabList.cpp" />
     <ClCompile Include="src\SlabStructs.cpp" />
     <ClCompile Include="src\SlabUtility.cpp" />
-    <ClCompile Include="test\slab\FullMemoryTest\FullMemoryTest.cpp" />
+    <ClCompile Include="test\slab\ManyThreadsOneCacheTest\ManyThreadsOneCacheTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="h\AllocatorUtility.h" />

@@ -41,7 +41,7 @@
     <ClCompile Include="src\CacheBlockList.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="test\slab\FullMemoryTest\FullMemoryTest.cpp">
+    <ClCompile Include="test\slab\ManyThreadsOneCacheTest\ManyThreadsOneCacheTest.cpp">
       <Filter>Test</Filter>
     </ClCompile>
   </ItemGroup>
