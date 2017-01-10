@@ -32,6 +32,10 @@ namespace os2bn140314d {
 
 	void *Slab::bufferAllocate(size_t size) noexcept {
 		auto &header = AllocatorUtility::slabHeader();
+		if (size < slab_header_s::BUFFER_SIZES_LOWER_BOUND) {
+			size = slab_header_s::BUFFER_SIZES_LOWER_BOUND;
+		}
+
 		return header.buffers_[size - slab_header_s::BUFFER_SIZES_LOWER_BOUND]->allocate();
 	}
 
