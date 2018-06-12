@@ -1,0 +1,14 @@
+var searchData=
+[
+  ['kfree',['kfree',['../_slab_8h.html#a5273884a01705283d2b9e4262a8e6da3',1,'kfree(const void *objp):&#160;Slab.cpp'],['../_slab_8cpp.html#a5273884a01705283d2b9e4262a8e6da3',1,'kfree(const void *objp):&#160;Slab.cpp']]],
+  ['kmalloc',['kmalloc',['../_slab_8h.html#a5f52d7c56b7d67dc2f96b2e93dfdc7be',1,'kmalloc(size_t size):&#160;Slab.cpp'],['../_slab_8cpp.html#a5f52d7c56b7d67dc2f96b2e93dfdc7be',1,'kmalloc(size_t size):&#160;Slab.cpp']]],
+  ['kmem_5fcache_5falloc',['kmem_cache_alloc',['../_slab_8h.html#ae4158b77d11c6052aa7d3f05dfc0e09e',1,'kmem_cache_alloc(kmem_cache_t *cachep):&#160;Slab.cpp'],['../_slab_8cpp.html#ae4158b77d11c6052aa7d3f05dfc0e09e',1,'kmem_cache_alloc(kmem_cache_t *cachep):&#160;Slab.cpp']]],
+  ['kmem_5fcache_5fcreate',['kmem_cache_create',['../_slab_8h.html#a1e5b2ca9e618f7ebea2d1074f5ce3f3a',1,'kmem_cache_create(const char *name, size_t size, void(*ctor)(void *), void(*dtor)(void *)):&#160;Slab.cpp'],['../_slab_8cpp.html#a1e5b2ca9e618f7ebea2d1074f5ce3f3a',1,'kmem_cache_create(const char *name, size_t size, void(*ctor)(void *), void(*dtor)(void *)):&#160;Slab.cpp']]],
+  ['kmem_5fcache_5fdestroy',['kmem_cache_destroy',['../_slab_8h.html#a5f0ecd33e4daff042990533edc8c50ce',1,'kmem_cache_destroy(kmem_cache_t *cachep):&#160;Slab.cpp'],['../_slab_8cpp.html#a5f0ecd33e4daff042990533edc8c50ce',1,'kmem_cache_destroy(kmem_cache_t *cachep):&#160;Slab.cpp']]],
+  ['kmem_5fcache_5ferror',['kmem_cache_error',['../_slab_8h.html#ade69b6b1ce2e7a257aa625673a9dab14',1,'kmem_cache_error(kmem_cache_t *cachep):&#160;Slab.cpp'],['../_slab_8cpp.html#ade69b6b1ce2e7a257aa625673a9dab14',1,'kmem_cache_error(kmem_cache_t *cachep):&#160;Slab.cpp']]],
+  ['kmem_5fcache_5ffree',['kmem_cache_free',['../_slab_8h.html#a5c27b06cd9716ff57a7205ab9eb41ff7',1,'kmem_cache_free(kmem_cache_t *cachep, void *objp):&#160;Slab.cpp'],['../_slab_8cpp.html#a5c27b06cd9716ff57a7205ab9eb41ff7',1,'kmem_cache_free(kmem_cache_t *cachep, void *objp):&#160;Slab.cpp']]],
+  ['kmem_5fcache_5finfo',['kmem_cache_info',['../_slab_8h.html#a93a1bcc5820ce0a12f9f345dde2842fb',1,'kmem_cache_info(kmem_cache_t *cachep):&#160;Slab.cpp'],['../_slab_8cpp.html#a93a1bcc5820ce0a12f9f345dde2842fb',1,'kmem_cache_info(kmem_cache_t *cachep):&#160;Slab.cpp']]],
+  ['kmem_5fcache_5fshrink',['kmem_cache_shrink',['../_slab_8h.html#a9f0fe1b27cade1da595bcf3de4918766',1,'kmem_cache_shrink(kmem_cache_t *cachep):&#160;Slab.cpp'],['../_slab_8cpp.html#a9f0fe1b27cade1da595bcf3de4918766',1,'kmem_cache_shrink(kmem_cache_t *cachep):&#160;Slab.cpp']]],
+  ['kmem_5fcache_5ft',['kmem_cache_t',['../_slab_8h.html#aac429e8933f78ed44e7971a08afa137d',1,'Slab.h']]],
+  ['kmem_5finit',['kmem_init',['../_slab_8h.html#a6c8652bbd59c9c9c6feb240dadbe89da',1,'kmem_init(void *space, int block_num):&#160;Slab.cpp'],['../_slab_8cpp.html#a6c8652bbd59c9c9c6feb240dadbe89da',1,'kmem_init(void *space, int block_num):&#160;Slab.cpp']]]
+];
